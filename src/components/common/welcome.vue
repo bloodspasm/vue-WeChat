@@ -7,7 +7,7 @@
 export default {
     data() {
             return {
-                hide: false
+                hide: true
             }
         },
         mounted() {
@@ -45,7 +45,7 @@ export default {
     visibility: hidden;
 }
 
-/*     
+/*
     @keyframes welcome {
         0% {
             opacity: 1.0;

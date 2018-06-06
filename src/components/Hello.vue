@@ -27,6 +27,11 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  beforeCreate() {
+    // mutations.js中有介绍
+    // this.$store.commit('toggleHeaderStatus', false)
+//    this.$store.state.headerStatus = false
   }
 }
 </script>

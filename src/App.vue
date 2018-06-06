@@ -32,7 +32,7 @@
     import WxNav from './components/common/wx-nav'
     import search from './components/common/search'
     import mixin from "./vuex/mixin.js" // 混合被单独放在 mixin.js 中管理
-    window.mixin = mixin // 将 混合/mixin 暴露在窗口对象中，某些组件需要时，直接提取 window.mixin 
+    window.mixin = mixin // 将 混合/mixin 暴露在窗口对象中，某些组件需要时，直接提取 window.mixin
     export default {
         name: 'app',
         components: {
@@ -49,6 +49,9 @@
                 "leaveAnimate": "" //页面离开动效
             }
         },
+      beforeCreate(){
+          this.$store.state.headerStatus = false
+      },
         watch: {
             // 监听 $route 为店内页设置不同的过渡效果
             "$route" (to, from) {
@@ -73,17 +76,17 @@
 </script>
 <style>
     /*将公用的样式统一在此导入*/
-    
+
     @import "assets/css/base.css";
     @import "assets/css/common.css";
     @import "assets/css/wx-header.css";
     /*阿里 fonticon*/
-    
+
     @import "assets/css/lib/iconfont.css";
     /*过渡效果需要的动画库*/
-    
+
     @import "assets/css/lib/animate.css";
     /*weui 样式库 非常适合高仿微信*/
-    
+
     @import "assets/css/lib/weui.min.css";
 </style>
