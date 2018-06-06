@@ -8,7 +8,7 @@
             </header>
             <!--搜索框 只在“微信”和“通讯录”页面下显示-->
             <!--<search v-show="$route.path.indexOf('explore')===-1&&$route.path.indexOf('self')===-1"></search>-->
-          <search v-show="$route.path==='/'"></search>
+          <search v-show="$route.path==='/show'"></search>
             <!--四个门面页 “微信” “通讯录” “发现” “我”-->
             <section class="app-content">
                 <keep-alive>
@@ -16,7 +16,7 @@
                 </keep-alive>
             </section>
             <!--底部导航 路由 -->
-            <footer class="app-footer" v-show="$route.path==='/'">
+            <footer class="app-footer" v-show="$route.path==='/show'">
                 <wx-nav></wx-nav>
             </footer>
         </div>
