@@ -11,6 +11,7 @@
     "analyze": "npm_config_preview=true  npm_config_report=true node build/build.js"
   },
   "dependencies": {
+    "lunar-calendar": "^0.1.4",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0"
   },

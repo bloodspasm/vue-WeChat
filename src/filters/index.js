@@ -1,7 +1,7 @@
 const filters = {
     /**
      * 功能：将时间戳按照给定的 时间/日期 格式进行处理
-     * @param {Number} date 时间戳 
+     * @param {Number} date 时间戳
      * @param {String} fmtExp 时间格式 'hh:ss'
      * @returns {String} 规范后的 时间/日期 字符串
      */
@@ -22,7 +22,10 @@ const filters = {
             if (new RegExp("(" + k + ")").test(fmtExp))
                 fmtExp = fmtExp.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         return fmtExp;
-    }
+    },
+    // nslog: function () {
+    //   console.log("123123")
+    // }
 }
 export default (Vue) => {
     Object.keys(filters).forEach(key => {
