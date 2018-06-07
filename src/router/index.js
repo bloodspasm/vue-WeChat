@@ -4,13 +4,13 @@ import Router from 'vue-router'
 Vue.use(Router)
     //app整体由店面页和店内页组成 暂时并没有用到嵌套路由
 const routes = [
-    // {
-    //     path: '/',
-    //     name: "微信",
-    //     component: resolve => require(["../components/wechat/wechat.vue"], resolve)
-    // },
     {
-          path: '/hello',
+        path: '/driver',
+        name: "微信",
+        component: resolve => require(["../components/Hello.vue"], resolve)
+    },
+    {
+          path: '/',
           name: "",
       component: resolve => require(["../components/Hello.vue"], resolve)
     },
@@ -165,7 +165,8 @@ const routes = [
 
 ]
 export default new Router({
-    base: "/vue-wechat/",
+    base: "/",
+    // mode: 'history',
     routes,
     // scrollBehavior(to, from, savedPosition) {
     //     if (savedPosition) {

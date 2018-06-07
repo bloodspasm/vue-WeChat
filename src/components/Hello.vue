@@ -5,6 +5,7 @@
     <div class="content">
         <div id="poster">
           <canvas id="gameCanvas"></canvas>
+          <img id="gameimg" alt='from canvas'/>
         </div>
     </div>
     <!--底部日期显示-->
@@ -13,7 +14,10 @@
             <p class="timeviewf">{{ nowDay }}</p><p class="timeviewd">{{ weekDay }}<br>{{ yearDay }}</p>
         </div>
         <div class="moodview">
-          <img src="../assets/png/taiyang.png"/>
+          <router-link to="/driver">
+            <img src="../assets/png/taiyang.png"/>
+          </router-link>
+
           <img src="../assets/png/nanguo.png"/>
           <img src="../assets/png/biji.png"/>
         </div>
@@ -43,12 +47,15 @@ export default {
 
     var canvas = document.getElementById("gameCanvas");
     var ctx = canvas.getContext("2d");
+
+
     canvas.width= 300//this.getDomWidth("poster");
     canvas.height= 482//this.getDomHeight("poster");
     ctx.lineJoin = "round";
+    ctx.fillStyle="#FFF"
+    ctx.fillRect(2, 2,  canvas.width-4, canvas.height-4);
     ctx.lineWidth = 4;
     ctx.strokeRect(2, 2,  canvas.width-4, canvas.height-4);
-
     ctx.lineWidth = 2;
     canvasLine(ctx,0,15,canvas.width,15)
 
@@ -62,13 +69,6 @@ export default {
     ctx.fillStyle = "#333";
     ctx.font = "10rem 'Times'";
     ctx.textAlign = "center";
-//shadowBlur:模式级数
-//    ctx.shadowBlur = 10;
-//    ctx.shadowOffsetX = 5;
-//    ctx.shadowOffsetY = 5;
-//    ctx.shadowColor = "black";
-//fillText("要添加的文字",x0坐标，y0坐标)
-//    ctx.strokeText("You jump! I jump!",50,100);
     ctx.fillText("24",canvas.width/8*5,canvas.height/3*1.25);
     ctx.font = "2rem sans-serif";
     ctx.fillStyle = "#222";
@@ -78,22 +78,15 @@ export default {
     ctx.textBaseline = 'top';
     ctx.font = "1rem 'hei";
     var fontWidth = (canvas.width/4-15)
+    var sting = this.getLunarString()
+    canvasTextAutoLine(sting,canvas,20,fontWidth,fontWidth/2)
 
-    var solarDate = new Date(); //公历2014年2月1日
-    var lunar = LunarCalendar.solarToLunar(solarDate.getFullYear(),solarDate.getMonth()+1,solarDate.getDate());
-    var space = ' '
-    var fmt = lunar.lunarMonthName+
-              lunar.lunarDayName+space+
-              lunar.GanZhiYear+'年'+space+
-              '●'+lunar.zodiac+'年'+space+
-              lunar.GanZhiMonth+'月'+space+
-              lunar.GanZhiDay+'日' + space+
-              lunar.lunarYear+'/'+
-              lunar.lunarLeapMonth+'/'+
-              lunar.lunarDay+space+wd
+    var img = canvas.toDataURL("image/png");
+    var gameimg = document.getElementById("gameimg");
+    gameimg.src= img
 
-    console.log(lunar)
-    canvasTextAutoLine(fmt,canvas,20,fontWidth,fontWidth/2)
+
+
   },
   methods: {
     //获取年月
@@ -117,9 +110,35 @@ export default {
     getNowDay:function(){
       var myDate = new Date();
       return (myDate.getDay());
+    },
+    //获取农历日期
+    getLunarString:function () {
+      var solarDate = new Date(); //公历2014年2月1日
+      var lunar = LunarCalendar.solarToLunar(solarDate.getFullYear(),solarDate.getMonth()+1,solarDate.getDate());
+      var space = ' '
+      var fmt = lunar.lunarMonthName+
+        lunar.lunarDayName+space+
+        lunar.GanZhiYear+'年'+space+
+        '●'+lunar.zodiac+'年'+space+
+        lunar.GanZhiMonth+'月'+space+
+        lunar.GanZhiDay+'日' + space+
+        lunar.lunarYear+'/'+
+        lunar.lunarMonth+'/'+
+        lunar.lunarDay+space+this.getWeekDay()
+      return fmt
     }
+
   }
 }
+
+function saveAsLocalImage () {
+  var myCanvas = document.getElementById("thecanvas");
+  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+  // var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream;Content-Disposition: attachment;filename=foobar.png");
+  var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+  window.location.href=image; // it will save locally
+}
+
 
 //获取坐标点与颜色画笔类型
 function canvasLine(ctx,x1,y1,x2,y2) {
@@ -284,7 +303,22 @@ a {
     top: 0px;
   }
 
-  #poster{
+  #poster {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 20px;
+    /*width: 80%;*/
+    /*height: 80%;*/
+    width: 300px;
+    height: 482px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -moz-box-shadow:0px 0px 10px #E6E6E6; -webkit-box-shadow:0px 0px 10px #E6E6E6; box-shadow:0px 0px 10px #E6E6E6;
+  }
+
+  #gameimg {
     text-align: center;
     background-color: #fff;
     border-radius: 20px;
